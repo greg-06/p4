@@ -1,19 +1,16 @@
-from random import randint, choice
 
-players = [
-    {"id": 1, "rank": randint(1, 3000)},
-    {"id": 2, "rank": randint(1, 3000)},
-    {"id": 3, "rank": randint(1, 3000)},
-    {"id": 4, "rank": randint(1, 3000)},
-    {"id": 5, "rank": randint(1, 3000)},
-    {"id": 6, "rank": randint(1, 3000)},
-    {"id": 7, "rank": randint(1, 3000)},
-    {"id": 8, "rank": randint(1, 3000)}
-]
+
+def gen_matchup(p1, p2):
+    """ Génèration d'une rencontre
+    retourne une paire ordonnée d'identifiants des deux joueurs du match"""
+    return tuple(sorted((p1['id'], p2['id'])))
 
 
 def get_player_score(p_id, scores):
-    '''Lecture du score d'un joueur'''
+    '''Lecture du score d'un joueur
+        on recherche un joueur dans la liste des scores 
+        et si on le trouve on incrémente son score
+    on retourne le score total'''
     s = 0
     for (p1_id, s1), (p2_id, s2) in scores:
         if p_id == p1_id:
@@ -23,100 +20,75 @@ def get_player_score(p_id, scores):
     return s
 
 
-def gen_first_round_matchups(players):
-    '''Génère les 4 matchups du tour 1 (système Suisse)'''
-    players.sort(key=lambda x: x["rank"])
-    g1, g2 = players[:4], players[4:]  # slicing
-    return [gen_matchup(g1[i], g2[i]) for i in range(4)]
+def gen_round(round, players, tournament_matchups, tournament_scores):
+    """ Génération du round :
+    si il s'agit du premier round
+        on trie les joueurs par classement
+        on sépare les joueurs en 2 groupes
+        on génère des matchs avec des paires consituées des joueurs du premier et deuxième groupe
+        on met à jour la liste des matchs du tournoi
+        on retourne la liste des matchs générés
+    sinon
+        on trie les joueurs par score et si ils sont équivalents on les tries par rang
+        tant qu'il reste des joueurs qui n'ont pas joué
+            on extrait un premier joueur
+            on récupère son adversaire
+            on génère le match
+            on rajoute le match à la liste des matchups
+            on met à jour la liste des matchs du tournoi
+        on retourne la liste des matchs générés"""
+    matchups = []
+    if round == 1:
+        players = sorted(players, key=lambda x: -x["rank"])
+        matchups = [
+            gen_matchup(p1, p2) for p1, p2 in zip(players[:4], players[4:])]
+        tournament_matchups += matchups
+    else:
+        round_players = sorted(
+            players, key=lambda x: (
+                -get_player_score(x["id"], tournament_scores), -x["rank"]))
+        while round_players:
+            p1 = round_players.pop(0)
+            p2 = search_opponent(
+                p1, round_players, tournament_matchups)
+            match = gen_matchup(p1, p2)
+            matchups.append(match)
+            tournament_matchups.append(match)
+    print(matchups)
+    return matchups
 
 
-def gen_score_matchup(matchup):
-    '''Génère le score d'un match'''
-    player1_id = matchup[0]
-    player2_id = matchup[-1]
-    s1 = choice((0, 0.5, 1))
+def gen_score(matchup):
+    '''génère le score d'un match
+       le score du joueur 1 est demandé à l'utilisateur
+       le score du joueur 2 est déduit du score du joueur 1
+    retourne un match joué sous la forme d'un tuple de deux tuples'''
+    s1 = float(input("Entrez un score: "))
     s2 = 1 - s1
-    return ((player1_id, s1), (player2_id, s2))
+    return ((matchup[0], s1), ((matchup[1], s2)))
 
 
-def gen_matchup(p1, p2):
-    '''Génère un match'''
-    return f"{min(p1['id'], p2['id'])} vs {max(p1['id'], p2['id'])}"
+def search_opponent(p1, players, played_matchups):
+    """ Recherche d'un adversaire dans les joueurs restant du tour
+    si le match a déjà été joué, on prend le joueur suivant
+    si tous les matchs ont déjà été joués on prend le joueur ayant le meilleur score """
+    for p2 in players:
+        matchup = gen_matchup(p1, p2)
+        if matchup not in played_matchups:
+            players.pop(players.index(p2))
+            return p2
+    return players.pop(0)
 
 
-'''Print des 4 matchups du tour 1'''
-matchups_tour1 = gen_first_round_matchups(players)
-print(matchups_tour1)
-
-
-# def gen_score(match, randomized=True):
-#     '''génère le score d'un match'''
-#     s1 = choice((0, 0.5, 1)) if randomized \
-#         else float(input("Entrez un score: "))
-#     s2 = 1 - s1
-#     return ((match[0], s1), ((match[1], s2)))
-
-
-# def update_players_scores(players, scores):
-# """fonction qui génère le score d'un match"""
-#     for (p1_id, s1), (p2_id, s2) in scores:
-#         p1 = list(filter(lambda x: x["id"] == p1_id, players)).pop()
-#         p2 = list(filter(lambda x: x["id"] == p2_id, players)).pop()
-#         p1["score"] += s1
-#         p2["score"] += s2
-
-
-# def find_opponent(p1, round_players, tournament_matchups):
-#     '''trouve l'opposant d'un match'''
-#     for p2 in round_players:
-#         matchup = name_matchup(p1, p2)
-#         if matchup not in tournament_matchups:
-#             round_players.pop(round_players.index(p2))
-#             return p2
-
-
-# def gen_next_round_matchups(players, tournament_matchups):
-#     """génère les rencontres suivantes"""
-#     """find_opponet possiblement bogué"""
-#     matchups = []
-#     round_players = sorted(players, key=lambda x: (-x["score"], x["rank"]))
-#     while round_players:
-#         p1 = round_players.pop(0)
-#         p2 = find_opponent(p1, round_players, tournament_matchups)
-#         matchup = name_matchup(p1, p2)
-#         matchups.append(matchup)
-#         tournament_matchups.append(matchup)
-#     return matchups
-
-
-# tournament_matchups = []
-# matchups_t1 = gen_first_round_matchups(players)
-# tournament_matchups += matchups_t1
-# scores_t1 = [score_matchup(matchup) for matchup in matchups_t1]
-
-# # update_players_scores(players, scores_t1)
-# gen_score(players, scores_t1)
-
-# matchups_t2 = gen_next_round_matchups(players, tournament_matchups)
-# tournament_matchups += matchups_t2
-# scores_t2 = [score_matchup(matchup) for matchup in matchups_t2]
-
-# # update_players_scores(players, scores_t2)
-# gen_score(players, scores_t2)
-
-# matchups_t3 = gen_next_round_matchups(players, tournament_matchups)
-# tournament_matchups += matchups_t3
-# scores_t3 = [score_matchup(matchup) for matchup in matchups_t3]
-
-# # update_players_scores(players, scores_t3)
-# gen_score(players, scores_t3)
-
-# matchups_t4 = gen_next_round_matchups(players, tournament_matchups)
-# tournament_matchups += matchups_t4
-# scores_t4 = [score_matchup(matchup) for matchup in matchups_t4]
-
-# # update_players_scores(players, scores_t4)
-# gen_score(players, scores_t4)
-
-# print(tournament_matchups)
-# print(scores_t1, scores_t2, scores_t3, scores_t4)
+def gen_tournament(players, nb_rounds=4):
+    """ Génération d'un tournoi de 4 tours par défaut
+    pour les N tours d'un tournoi
+        on génère le tour (les matchups)
+        puis on génère les scores du tour
+    et on retourne les scores du tournoi"""
+    tournament_matchups = []
+    tournament_scores = []
+    for r in range(1, nb_rounds + 1):
+        matchups = gen_round(r, players, tournament_matchups, tournament_scores)
+        tournament_scores += [gen_score(m) for m in matchups]
+    return tournament_scores
