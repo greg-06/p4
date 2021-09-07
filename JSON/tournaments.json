@@ -1,7 +1,7 @@
 [
-    {"id":1, "date_start":"2021-01-09", "date_end":"2021-01-09", "name":"t1"},
-    {"id":2, "date_start":"2021-02-09", "date_end":"2021-02-09", "name":"t2"},
-    {"id":3, "date_start":"2021-03-09", "date_end":"2021-03-09", "name":"t3"},
-    {"id":4, "date_start":"2021-04-09", "date_end":"2021-04-09", "name":"t4"},
-    {"id":5, "date_start":"2021-05-09", "date_end":"2021-05-09", "name":"t5"}
+    {"id":1, "date_start":"2021-01-09", "date_end":"2021-01-09", "name":"tournoi_1"},
+    {"id":2, "date_start":"2021-02-09", "date_end":"2021-02-09", "name":"tournoi_2"},
+    {"id":3, "date_start":"2021-03-09", "date_end":"2021-03-09", "name":"tournoi_3"},
+    {"id":4, "date_start":"2021-04-09", "date_end":"2021-04-09", "name":"tournoi_4"},
+    {"id":5, "date_start":"2021-05-09", "date_end":"2021-05-09", "name":"tournoi_5"}
 ]
