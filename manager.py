@@ -25,7 +25,7 @@ class Manager:
     def read_by_id(self, id: PositiveInt):
         return self.items[id]
 
-    def load_json_from_file(self, path: str):                      
+    def load_json_from_file(self, path: str):
         with open(path) as read_file:
             json_data = json.load(read_file)
             for data in json_data:
