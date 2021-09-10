@@ -1,7 +1,33 @@
 [
-    {"id":1, "date_start":"2021-01-09", "date_end":"2021-01-09", "name":"tournoi_1"},
-    {"id":2, "date_start":"2021-02-09", "date_end":"2021-02-09", "name":"tournoi_2"},
-    {"id":3, "date_start":"2021-03-09", "date_end":"2021-03-09", "name":"tournoi_3"},
-    {"id":4, "date_start":"2021-04-09", "date_end":"2021-04-09", "name":"tournoi_4"},
-    {"id":5, "date_start":"2021-05-09", "date_end":"2021-05-09", "name":"tournoi_5"}
+    {
+        "id":1, 
+        "name":"tournoi_1",
+        "place":"Paris", 
+        "date_start":"2021-01-09",
+        "date_end":"2021-01-09", 
+        "nb_turns": 4, 
+        "players":[1, 2, 3, 4, 5, 6, 7, 8], 
+        "turns":[{"name":"tour1", "date_start":"2021-01-09", "date_end":"2021-01-09", "matchs":[{"id_p1": 1, "id_p2": 2, "s1": 0.5, "s2": 0.5}]}]
+    },
+    {
+        "id":2, 
+        "name":"tournoi_2",
+        "place":"Marseille", 
+        "date_start":"2021-02-09",
+        "date_end":"2021-02-09", 
+        "nb_turns": 4, 
+        "players":[1, 2, 3, 4, 5, 6, 7, 8], 
+        "turns":{"name":"tour1", "date_start":"2021-02-09", "date_end":"2021-02-09", "matchs":{"id_p1": 1, "id_p2": 2, "s1": 0.5, "s2": 0.5}}
+    },
+    {
+        "id":1, 
+        "name":"tournoi_3",
+        "place":"Lyon", 
+        "date_start":"2021-03-09",
+        "date_end":"2021-03-09", 
+        "nb_turns": 4, 
+        "players":[1, 2, 3, 4, 5, 6, 7, 8], 
+        "turns":{"name":"tour1", "date_start":"2021-03-09", "date_end":"2021-03-09", "matchs":{"id_p1": 1, "id_p2": 2, "s1": 0.5, "s2": 0.5}}
+    }
 ]
+
