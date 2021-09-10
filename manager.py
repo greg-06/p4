@@ -7,6 +7,9 @@ from models.player import Player
 le crud = create read update delete
 (permet de communiquer avec la base de données)"""
 
+""" work in progress => charger un tournoi complet
+avec ses tours et matchs """
+
 
 class Manager:
     """on gère une collection d'entités chargés
