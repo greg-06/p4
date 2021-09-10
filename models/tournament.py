@@ -3,6 +3,7 @@ from pydantic import BaseModel, validator
 from pydantic.types import PositiveInt
 import re
 from datetime import datetime
+from .turn import Turn
 
 
 class Tournament(BaseModel):
@@ -13,7 +14,7 @@ class Tournament(BaseModel):
     date_end: datetime
     nb_turns: PositiveInt
     players: List[PositiveInt]
-    turns: List
+    turns: List[Turn]
 
     @validator("name", "place")
     def check_name(cls, v: str):
