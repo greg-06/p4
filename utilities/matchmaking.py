@@ -25,11 +25,13 @@ def gen_round(round, players, tournament_matchups, tournament_scores):
     si il s'agit du premier round
         on trie les joueurs par classement
         on sépare les joueurs en 2 groupes
-        on génère des matchs avec des paires consituées des joueurs du premier et deuxième groupe
+        on génère des matchs avec des paires
+        consituées des joueurs du premier et deuxième groupe
         on met à jour la liste des matchs du tournoi
         on retourne la liste des matchs générés
     sinon
-        on trie les joueurs par score et si ils sont équivalents on les trie par rang
+        on trie les joueurs par score et si ils sont équivalents
+        on les trie par rang
         tant qu'il reste des joueurs qui n'ont pas joué
             on extrait un premier joueur
             on récupère son adversaire
@@ -71,7 +73,8 @@ def gen_score(matchup):
 def search_opponent(p1, players, played_matchups):
     """Recherche d'un adversaire dans les joueurs restant du tour
     si le match a déjà été joué, on prend le joueur suivant
-    si tous les matchs ont déjà été joués on prend le joueur ayant le meilleur score"""
+    si tous les matchs ont déjà été joués
+    on prend le joueur ayant le meilleur score"""
     for p2 in players:
         matchup = gen_matchup(p1, p2)
         if matchup not in played_matchups:
