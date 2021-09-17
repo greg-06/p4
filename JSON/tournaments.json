@@ -1,35 +1,37 @@
 [
     {
-        "id":1, 
-        "name":"tournoi_1",
-        "place":"Paris", 
-        "date_start":"2021-01-09",
-        "date_end":"2021-01-09", 
+        "id": 1, 
+        "name": "tournoi_1",
+        "place": "Paris", 
+        "date_start": "2021-09-17T20:30:00",
+        "date_end":"2021-09-17T00:30:00", 
         "nb_turns": 4, 
-        "players":[1, 2, 3, 4, 5, 6, 7, 8], 
-        "turns":[{"name":"tour1", "date_start":"2021-01-09", "date_end":"2021-01-09", "matchs":[{"id_p1": 1, "id_p2": 2, "s1": 0.5, "s2": 0.5}]}]
-    },
+        "players": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+        ],             
+        "turns":[
+            {
+                "name": "tour1", "date_start": "2021-09-17T20:30:00", "date_end": "2021-09-17T21:30:00", "matchs": [{"id_p1": 1, "id_p2": 2, "s1": 0.5, "s2": 0.5}]
+            },
 
-    {
-        "id":2, 
-        "name":"tournoi_2",
-        "place":"Marseille", 
-        "date_start":"2021-02-09",
-        "date_end":"2021-02-09", 
-        "nb_turns": 4, 
-        "players":[1, 2, 3, 4, 5, 6, 7, 8], 
-        "turns":{"name":"tour1", "date_start":"2021-02-09", "date_end":"2021-02-09", "matchs":{"id_p1": 1, "id_p2": 2, "s1": 0.5, "s2": 0.5}}
-    },
-    
-    {
-        "id":1, 
-        "name":"tournoi_3",
-        "place":"Lyon", 
-        "date_start":"2021-03-09",
-        "date_end":"2021-03-09", 
-        "nb_turns": 4, 
-        "players":[1, 2, 3, 4, 5, 6, 7, 8], 
-        "turns":{"name":"tour1", "date_start":"2021-03-09", "date_end":"2021-03-09", "matchs":{"id_p1": 1, "id_p2": 2, "s1": 0.5, "s2": 0.5}}
+            {
+                "name": "tour2", "date_start": "2021-09-17T21:30:00", "date_end": "2021-09-17T22:30:00", "matchs": [{"id_p1": 1, "id_p2": 2, "s1": 0.5, "s2": 0.5}]
+            },
+            
+            {
+                "name": "tour3", "date_start": "2021-09-17T2:30:00", "date_end": "2021-09-17T23:30:00", "matchs": [{"id_p1": 1, "id_p2": 2, "s1": 0.5, "s2": 0.5}]
+            },
+            
+            {
+                "name": "tour4", "date_start": "2021-09-17T23:30:00", "date_end": "2021-09-17T00:30:00", "matchs": [{"id_p1": 1, "id_p2": 2, "s1": 0.5, "s2": 0.5}]
+            }
+                ]
     }
 ]
-
