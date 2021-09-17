@@ -1,10 +1,72 @@
 [
-    {"id": 1, "rank": 10, "first_name": "Luc", "last_name": "Skywalker", "birthdate": "2000-05-20", "gender": "M"},
-    {"id": 2, "rank": 20, "first_name": "Leia", "last_name": "Skywalker", "birthdate": "2000-05-20", "gender": "F"}, 
-    {"id": 3, "rank": 30, "first_name": "Yoda", "last_name": "Master", "birthdate": "2000-05-20", "gender": "M"},
-    {"id": 4, "rank": 40, "first_name": "Boba", "last_name": "Fett", "birthdate": "2000-05-20", "gender": "M"}, 
-    {"id": 5, "rank": 50, "first_name": "Ben", "last_name": "Kenobi", "birthdate": "2000-05-20", "gender": "M"},
-    {"id": 6, "rank": 60, "first_name": "Jabba", "last_name": "The hut", "birthdate": "2000-05-20", "gender": "M"}, 
-    {"id": 7, "rank": 70, "first_name": "Han", "last_name": "Solo", "birthdate": "2000-05-20", "gender": "M"},
-    {"id": 8, "rank": 80, "first_name": "Anakin", "last_name": "Skywalker", "birthdate": "2000-05-20", "gender": "M"}
+    {
+        "id": 1, "rank": 10,
+        "first_name": "Luc",
+        "last_name": "Skywalker",
+        "birthdate": "2000-05-20",
+        "gender": "M"
+    },
+
+    {
+        "id": 2,
+        "rank": 20,
+        "first_name": "Leia",
+        "last_name": "Skywalker",
+        "birthdate": "2000-05-20",
+        "gender": "F"
+    },
+
+    {
+        "id": 3,
+        "rank": 30,
+        "first_name": "Yoda",
+        "last_name": "Master",
+        "birthdate": "2000-05-20",
+        "gender": "M"
+    },
+
+    {
+        "id": 4,
+        "rank": 40,
+        "first_name": "Boba",
+        "last_name": "Fett",
+        "birthdate": "2000-05-20",
+        "gender": "M"
+    },
+
+    {
+        "id": 5,
+        "rank": 50,
+        "first_name": "Ben",
+        "last_name": "Kenobi",
+        "birthdate": "2000-05-20",
+        "gender": "M"
+    },
+
+    {
+        "id": 6,
+        "rank": 60,
+        "first_name": "Jabba",
+        "last_name": "The hut",
+        "birthdate": "2000-05-20",
+        "gender": "M"
+    },
+
+    {
+        "id": 7,
+        "rank": 70,
+        "first_name": "Han",
+        "last_name": "Solo",
+        "birthdate": "2000-05-20",
+        "gender": "M"
+    },
+
+    {
+        "id": 8,
+        "rank": 80,
+        "first_name": "Anakin",
+        "last_name": "Skywalker",
+        "birthdate": "2000-05-20",
+        "gender": "M"
+    }
 ]
