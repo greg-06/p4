@@ -16,8 +16,5 @@ class Menu(View):
 
 View("Titre", "Message").display()
 
-""" créer une classe menu qui hérite de la classe view 
-en utilisant au maximum ce que la classe view propose 
-et en rajoutant input ce qui fait d'elle une classe parent.
-
-héritage et métaclasses à voir """
+""" créer une classe menu qui hérite de la classe view. Rajouter l'input.
+Héritage et métaclasses à voir, iso 8601 à voir également. """
