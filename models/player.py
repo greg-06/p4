@@ -45,13 +45,13 @@ class Player(BaseModel):
         return v
 
 
-player = Player(
-    id=1,
-    first_name="Luc",
-    last_name="skywalker",
-    birthdate="1988-02-28",
-    gender="M",
-    rank=1
-)
+# player = Player(
+#     id=1,
+#     first_name="Luc",
+#     last_name="skywalker",
+#     birthdate="1988-02-28",
+#     gender="M",
+#     rank=1
+# )
 
-print(player)
+# print(player)
