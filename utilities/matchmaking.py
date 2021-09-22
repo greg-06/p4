@@ -8,7 +8,7 @@ def gen_matchup(p1, p2):
 
 def get_player_score(p_id, scores):
     '''Lecture du score d'un joueur
-        on recherche un joueur dans la liste des scores 
+        on recherche un joueur dans la liste des scores
         et si on le trouve on incrémente son score
     on retourne le score total'''
     s = 0
