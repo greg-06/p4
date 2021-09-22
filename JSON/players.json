@@ -1,6 +1,7 @@
 [
     {
-        "id": 1, "rank": 10,
+        "id": 1, 
+        "rank": 10,
         "first_name": "Luc",
         "last_name": "Skywalker",
         "birthdate": "2000-05-20",
