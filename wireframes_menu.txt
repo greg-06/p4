@@ -1,0 +1,118 @@
+Main menu
+
+	1 Manage tournaments
+	2 Manage players
+	3 Quit the program
+
+Manage tournament menu
+
+	1 Create tournament
+		1 New tournament
+			1 Name ?
+			2 Place ?
+			3 Date (start and end)
+			4 Back
+	2 List tournament by name
+		List tournament by name
+			1 Back
+	3 List tournament by date
+		List tournament by date
+			1 Back
+	4 Edit tournament
+		1 Edit Name
+			1 Edit date start
+			2 Edit date end
+			3 Back
+		2 Edit Place
+			1 Back
+		3 Edit Date
+			1 Edit date start
+			2 Edit date end
+			3 Back
+		2 List tournaments
+			tournaments
+				1 Back
+		3 Resume tournament
+			tournament
+				1 Back
+		4 Show reports
+			reports
+				1 Back
+		5 Back
+	5 Back
+
+Player menu
+	1 New player
+		1 First_name
+		2 Last_name
+		3 Birthdate
+		4 Gender
+		5 Rank
+		6 Back
+	2 List players by name
+		List players by name
+			1 Back
+	3 List players by rank
+		List players by rank
+			1 Back
+	4 Edit player
+		1 Edit first_name
+			1 Back
+		2 Edit last_name
+			1 Back
+		3 Edit birthdate
+			1 Back
+		4 Edit Gender
+			1 Back
+		5 Back
+	5 Back
+
+	
+
+
+
+	Tours Number
+		1 By default (4 tours)
+		2 Other
+
+	5 Tours (list of round instances)
+		1 index player 1 
+		2 index player 5
+	
+	6 add players (ist of clues of player instances)
+	
+	7 Time control 
+		1 Bullet(1 à 3 minutes per player)
+		2 Blitz (3 à 5 minutes per player)
+		3 Fast game (10 à 60 minutes par joueur)
+
+Description (tournament director's observations)
+	1 Observations
+	2 Edit observations
+	3 Show observations
+	3 Back
+
+Adding a player file (database)
+	1 First Name
+	2 Last Name
+	3 Birthdate
+	4 Gender
+	5 Rank
+	
+3 Start a wew tournament
+
+4 Lists of reports
+	1 all actors
+	2 all players in a tournament
+	3 all tournaments
+	4 all rounds in a tournament
+	5 all matches in a tournament
+
+
+
+
+
+
+
+
+
