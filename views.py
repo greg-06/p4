@@ -6,7 +6,7 @@ class View:
         self.message = message
 
     def display(self):
-        print("=" * 50 + "\n" + self.title + "\n" + "=" * 50 + "\n" + self.message + "\n" + "_" * 50)
+        print("=" * 50 + "\n" + self.title + "\n" + "=" * 50 + "\n" + self.message + "\n" + "_" * 50 + "\n")
 
 
 # View("Titre", "Message").display()
@@ -18,25 +18,25 @@ class Menu(View):
         self.menu = menu
 
     def display(self):
-        print("Titre : " + self.title)
-        print("Message : " + self.message)
-        print("Menu : " + self.menu)
+        print("=" * 50 + "\n" + self.title + "\n" + "=" * 50)
+        print(self.message)
+        print("-" * 50 + " \n" + self.menu + "\n" + "-" * 50 + "\n")
 
 
-view = View("mon_titre", "mon_message")
+view = View("Main Menu", "Choisissez votre option : ")
 view.display()
 
-menu1 = Menu("titre_test", "message_test", "menu_test")
+menu1 = Menu("Nom du Menu", "Choisissez votre option", "[1] Manage tournaments\n[2] Manage players\n[3] Quit the program")
 menu1.display()
 
 
-# MAIN_MENU_CHOICES = ["1", "2", "3"]
+MAIN_MENU_CHOICES = ["1", "2", "3"]
 
-# TEXTE_MAIN_MENU = """1 Manage tournaments
-# 2 Manage players
-# 3 Quit the program"""
+OPTIONS_MAIN_MENU = """1 Manage tournaments
+2 Manage players
+3 Quit the program"""
 
-# View("Main menu", TEXTE_MAIN_MENU).display()
+View("Main menu", OPTIONS_MAIN_MENU).display()
 
 """ créer une classe menu qui hérite de la classe view.
 Héritage et métaclasses à voir, iso 8601 à voir également. """
