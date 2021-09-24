@@ -26,8 +26,8 @@ class Menu(View):
 view = View("Main Menu", "Choisissez votre option : ")
 view.display()
 
-menu1 = Menu("Nom du Menu", "Choisissez votre option", "[1] Manage tournaments\n[2] Manage players\n[3] Quit the program")
-menu1.display()
+menu = Menu("Nom du Menu", "Choisissez votre option", "[1] Manage tournaments\n[2] Manage players\n[3] Quit the program")
+menu.display()
 
 
 MAIN_MENU_CHOICES = ["1", "2", "3"]
