@@ -10,87 +10,54 @@ _______________________________________________________
 Manage tournament menu
 
 	1 Create tournament
-		1 Name ?
-		2 Place ?
-		3 Date (start and end)
-		4 Back	
-	2 Edit tournament
-		1 Edit Name		
-		2 Edit Place
-		3 Edit Date
-			1 Edit date start
-			2 Edit date end
+		Name ?
+		Place ?
+		Date (start and end)
+		Tours Number			
+		Description	
+		Time control
+			1 Bullet(1 to 3 minutes per player)
+			2 Blitz (3 to 5 minutes per player)
+			3 Fast game (10 to 60 minutes par joueur)
+	
+	2 List tournaments
+		1 Tournament1
+			1 players rank
+			2 matches results
 			3 Back
-	3 Delete tournament
-		1 Select tournament
-		2 Back
-	4 List tournaments
-		1 by name
-		2 by Date
-		3 back
-	5 Resume tournament
-	7 Show reports
-	8 Tournament director's observations
-		1 Observations
-		2 Show observations
-		3 Edit observations
+	
+		2 Tournament2
+		3 Tournament3
 		4 Back
-	9 Tours Number
-			1 By default (4 tours)
-			2 Other
-			3 Back
-	10 Tours (list of round instances)
-		1 index player 1 
-		2 index player 5
-		3 Back	
-	11 add players (list of clues of player instances)	
-	12 Time control 
-		1 Bullet(1 à 3 minutes per player)
-		2 Blitz (3 à 5 minutes per player)
-		3 Fast game (10 à 60 minutes par joueur)
-		4 Back
-	13 Back
+
+	3 Resume tournament	
+			
+	4 Back
 _______________________________________________________
 
-Manage Player menu
+Manage Players menu
+
 	1 New player
-		1 First_name
-		2 Last_name
-		3 Birthdate
-		4 Gender
-		5 Rank
-		6 Back
+		First_name ?
+		Last_name?
+		Birthdate_year ?
+		Birthdate_month ?
+		Birthdate_day ?
+		Gender
+			1 Male 
+			2 Female
+		Rank ?
+
 	2 List players by name			
 	3 List players by rank			
-	4 Edit player
-		1 Edit first_name			
-		2 Edit last_name			
-		3 Edit birthdate			
-		4 Edit Gender			
-		5 Back
-	5 Adding a player file in the database		
-	6 Back
+	4 Edit player rank
+		1 Jordann
+			Rank ?
+		2 Stan
+		3 Jess
+		4 Sandy 
+		5 back	
 
+	5 Back
 _______________________________________________________
-
-Start a wew tournament
-	1 Start tournament
-	2 Resume tournament
-	3 Back
-
-Lists of reports
-	1 All actors
-	2 All players in a tournament
-	3 All tournaments
-	4 All rounds in a tournament
-	5 All matches in a tournament
-	6 Back
-
-
-
-
-
-
-
-
 
