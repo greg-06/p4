@@ -1,11 +1,10 @@
 
-# Classe mère
-from re import L
 from typing import List
+from models.player import Player
 
-
+# Classe mère
 class View:
-    def __init__(self, title, message):
+    def __init__(self, title: str, message: str):
         self.title = title
         self.message = message
 
@@ -21,7 +20,7 @@ class Menu(View):
         message = "\n".join([f"{nb}: {option}" for nb, option in enumerate(options, start=1)])
         View.__init__(self, title, message)
         self.options = options
-    
+
     def display(self):
         super().display()
         while True:
@@ -35,50 +34,82 @@ class Menu(View):
                 pass
 
 
-class form(View):
-    def __init__(self, title, message):
-        super().__init__(title, message)
-        
-
-main_menu = Menu("Main menu", ["Manage tournaments", "Manage players", "Quit the program"])
-main_menu.display()
-
-tournament_menu = Menu("Tournament Menu", ["Create", "List", "Resume1", "Back to main menu"])
-tournament_menu.display()
-
-players_menu = Menu("Players Menu", ["By name", "By rank", "Player rank", "Back to Main menu"])
-players_menu.display()
+''' créer une classe <formulaire> héritant de View,
+    capable de demander à l'utilisateur de rentrer des champs
+    et l'ensemble de ces champs sont retournés par display en tant que dictionnaire'''
 
 
+PLAYER_DICT = """ID : <nombre entier>
+Classement : <entre 1000 et 2000>
+Nom : <nom>
+Prénom : <prénom>
+Date de naissance : <YYYY-MM-DD>
+Sexe : <M> ou <F>"""
+
+player_dict_model = {
+        "id": "",
+        "rank": "",
+        "first_name": "",
+        "last_name": "",
+        "birthdate": "",
+        "gender": ""
+    }
+
+nb_champs = len(player_dict_model)
 
 
-# form1 = form()
-# form1.display()
-'''créer class form (formulaire) doit retourner un dico'''
+# for i in list(player_dict_model):
+#     choice = input("Saisissez l'id du joueur : ")
+#     player_dict_model["id"] = choice    
+#     choice = input("Saisissez le classement du joueur : ")
+#     player_dict_model["rank"] = choice
+#     choice = input("Saisissez le nom du joueur : ")
+#     player_dict_model["first_name"] = choice
+#     choice = input("Saisissez le prénom du joueur : ")
+#     player_dict_model["last_name"] = choice
+#     choice = input("date de naissance : ")
+#     player_dict_model["birthdate"] = choice
+#     choice = input("Sexe : ")
+#     player_dict_model["gender"] = choice                    
+#     print(player_dict_model)
+#     break
 
 
+class Form(View):
+    def __init_(self, title: str, message: str):
+        View.__init__(self, title, message)
 
-# menu = Menu("Nom du Menu", "Choisissez votre option", "[1] Manage tournaments\n[2] Manage players\n[3] Quit the program")
-# menu.display()
+    def display(self):
+        super().display()
+        while True:
+            try:
+                if player_dict_model:                    
+                    choice = input("Saisissez l'id du joueur : ")
+                    player_dict_model["id"] = choice
+                    choice = input("Saisissez le classement du joueur : ")
+                    player_dict_model["rank"] = choice
+                    choice = input("Saisissez le nom du joueur : ")
+                    player_dict_model["first_name"] = choice
+                    choice = input("Saisissez le prénom du joueur : ")
+                    player_dict_model["last_name"] = choice
+                    choice = input("date de naissance : ")
+                    player_dict_model["birthdate"] = choice
+                    choice = input("Sexe : ")
+                    player_dict_model["gender"] = choice
+                    print(player_dict_model)
+                    return choice
+            except ValueError:
+                pass
 
 
-# MAIN_MENU_CHOICES = ["1", "2", "3"]
+formulaire = Form("Fiche joueur", str(PLAYER_DICT))
+formulaire.display()
 
-# OPTIONS_MAIN_MENU = """1 Manage tournaments
-# 2 Manage players
-# 3 Quit the program"""
+# main_menu = Menu("Main menu", ["Manage tournaments", "Manage players", "Quit the program"])
+# main_menu.display()
 
-# View("Main menu", OPTIONS_MAIN_MENU).display()
+# tournament_menu = Menu("Tournament Menu", ["Create", "List", "Resume1", "Back to main menu"])
+# tournament_menu.display()
 
-""" créer une classe menu qui hérite de la classe view.
-Héritage et métaclasses à voir, iso 8601 à voir également. """
-
-# while MAIN_MENU_CHOICES != 3:
-#     user_choice = ""
-#     if user_choice == "1":
-#         print("")
-#     if user_choice == "1":
-#         print("")
-#     elif user_choice == "3":
-#         sys.exit()
-#     print("Thanks for using this program. Goodbye !")
+# players_menu = Menu("Players Menu", ["By name", "By rank", "Player rank", "Back to Main menu"])
+# players_menu.display()
