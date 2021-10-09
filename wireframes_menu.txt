@@ -19,6 +19,7 @@ Manage tournament menu
 			1 Bullet(1 to 3 minutes per player)
 			2 Blitz (3 to 5 minutes per player)
 			3 Fast game (10 to 60 minutes par joueur)
+		Back
 	
 	2 List tournaments
 		1 Tournament1
