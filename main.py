@@ -1,5 +1,16 @@
 from managers import tournament_manager, player_manager
-from views import CreateTournamentMenu, EditPlayerRankMenu, ListPlayersByNameMenu, ListPlayersByRankMenu, ListTournamentsMenu, MainMenu, ManagePlayerMenu, ManageTournament, NewPlayerMenu, ResumeTournamentMenu
+from views import (
+    CreateTournamentMenu,
+    EditPlayerRankMenu,
+    ListPlayersByNameMenu,
+    ListPlayersByRankMenu,
+    ListTournamentsMenu,
+    MainMenu,
+    ManagePlayerMenu,
+    ManageTournament,
+    NewPlayerMenu,
+    ResumeTournamentMenu
+    )
 import os
 
 
