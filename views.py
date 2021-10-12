@@ -11,14 +11,16 @@ class View:
 
     def display(self):
         os.system("cls")  # TD : rendre compatible unix
-        print("=" * 50 + "\n" + self.title + "\n" + "=" * 50 + "\n" + self.message + "\n" + "=" * 50)
+        print("=" * 50 + "\n" + self.title + "\n" + "=" * 50
+              + "\n" + self.message + "\n" + "=" * 50)
 
 
 # Classe fille
 class Menu(View):
     def __init__(self, title: str, options: List[str]):
         """"""
-        message = "\n".join([f"{nb}: {option}" for nb, option in enumerate(options, start=1)])
+        message = "\n".join([f"{nb}: {option}" for nb,
+                            option in enumerate(options, start=1)])
         View.__init__(self, title, message)
         self.options = options
 
@@ -27,7 +29,8 @@ class Menu(View):
         super().display()
         while True:
             try:
-                choice = int(input(f"👉  Choisissez votre option entre 1 et {len(self.options)} :  "))
+                choice = int(input(f"👉  Choisissez votre option entre 1 et \
+                    {len(self.options)} :  "))
                 if 0 < choice <= len(self.options):
                     return choice
                 else:
