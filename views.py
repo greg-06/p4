@@ -86,63 +86,155 @@ class PlayerAddForm(Form):
 class TournamentAddForm(Form):
     def __init__(self):
         """"""
-        super().__init__(title="Fiche tournoi", message=TOURNAMENT_DICT, fields={
-            "name": "Nom du tournoi",
-            "place": "Lieu du tournoi",
-            "nb_turns": "Nombre tours",
-            "nb_players": "Nombre de participants"
-        })
+        super().__init__(
+            title="Fiche tournoi",
+            message=TOURNAMENT_DICT,
+            fields={
+                "name": "Nom du tournoi",
+                "place": "Lieu du tournoi",
+                "nb_turns": "Nombre tours",
+                "nb_players": "Nombre de participants"
+                }
+            )
 
 
 class ManagePlayerMenu(Menu):
     def __init__(self):
         """"""
-        super().__init__("🧾 Manage players menu", ["New player", "List players by name", "List players by rank", "Edit player rank", "Back"])
+        super().__init__("🧾 Manage players menu",
+                         [
+                             "New player",
+                             "List players by name",
+                             "List players by rank",
+                             "Edit player rank",
+                             "Back"
+                             ]
+                         )
 
 
 class MainMenu(Menu):
     def __init__(self):
         """"""
-        super().__init__("📌 Menu principal", ["Manage tournaments", "Manage players", "Quit the program"])
+        super().__init__("📌 Menu principal",
+                         [
+                             "Manage tournaments",
+                             "Manage players",
+                             "Quit the program"
+                             ]
+                         )
 
 
 class ManageTournament(Menu):
     def __init__(self):
         """"""
-        super().__init__("🧾 Manage tournaments menu", ["Create tournament", "List tournaments", "Resume tournament", "Back"])
+        super().__init__("🧾 Manage tournaments menu",
+                         [
+                             "Create tournament",
+                             "List tournaments",
+                             "Resume tournament",
+                             "Back"])
 
 
 class CreateTournamentMenu(Menu):
     def __init__(self):
         """"""
-        super().__init__("🧾 Create tournament", ["Name", "Place", "Date", "Tours Number", "Description", "Time Control", "Back"])
+        super().__init__("🧾 Create tournament",
+                         [
+                             "Name",
+                             "Place",
+                             "Date",
+                             "Tours Number",
+                             "Description",
+                             "Time Control",
+                             "Back"
+                             ]
+                         )
 
 
 class ListTournamentsMenu(Menu):
     def __init__(self):
-        super().__init__("🧾 List tournaments", ["Tournament1", "Tournament2", "Tournament3", "Back"])
+        super().__init__("🧾 List tournaments",
+                         [
+                             "Tournament1",
+                             "Tournament2",
+                             "Tournament3",
+                             "Back"
+                             ]
+                         )
 
 
 class ResumeTournamentMenu(Menu):
     def __init__(self):
-        super().__init__("🧾 Resume menu", ["Resume", "Back"])
+        super().__init__("🧾 Resume menu",
+                         [
+                             "Resume",
+                             "Back"
+                             ]
+                         )
 
 
 class NewPlayerMenu(Menu):
     def __init__(self):
-        super().__init__("🧾 New Player menu", ["First Name", "Last name", "Birthdate_year", "Birthdate_month", "Birthdate_day", "Gender", "Rank", "Back"])
+        super().__init__("🧾 New Player menu",
+                         [
+                             "First Name",
+                             "Last name",
+                             "Birthdate_year",
+                             "Birthdate_month",
+                             "Birthdate_day",
+                             "Gender",
+                             "Rank",
+                             "Back"
+                             ]
+                         )
 
 
 class ListPlayersByNameMenu(Menu):
     def __init__(self):
-        super().__init__("🧾 List player by name menu", ["player1", "player2", "player3", "player4", "player5", "player6", "player7", "player8", "back"])
+        super().__init__("🧾 List player by name menu",
+                         [
+                             "player1",
+                             "player2",
+                             "player3",
+                             "player4",
+                             "player5",
+                             "player6",
+                             "player7",
+                             "player8",
+                             "back"
+                             ]
+                         )
 
 
 class ListPlayersByRankMenu(Menu):
     def __init__(self):
-        super().__init__("🧾 List player by rank menu", ["player1 rank", "player2 rank", "player3 rank", "player4 rank", "player5 rank", "player6 rank", "player7 rank", "player8 rank", "back"])
+        super().__init__("🧾 List player by rank menu",
+                         [
+                             "player1 rank",
+                             "player2 rank",
+                             "player3 rank",
+                             "player4 rank",
+                             "player5 rank",
+                             "player6 rank",
+                             "player7 rank",
+                             "player8 rank",
+                             "back"
+                             ]
+                         )
 
 
 class EditPlayerRankMenu(Menu):
     def __init__(self):
-        super().__init__("🧾 Edit player rank menu", ["Edit player_01 rank", "Edit player_02 rank", "Edit player_03 rank", "Edit player_04 rank", "Edit player_05 rank", "Edit player_06 rank", "Edit player_07 rank", "Edit player_08 rank", "back"])
+        super().__init__("🧾 Edit player rank menu",
+                         [
+                             "Edit player_01 rank",
+                             "Edit player_02 rank",
+                             "Edit player_03 rank",
+                             "Edit player_04 rank",
+                             "Edit player_05 rank",
+                             "Edit player_06 rank",
+                             "Edit player_07 rank",
+                             "Edit player_08 rank",
+                             "back"
+                             ]
+                         )
