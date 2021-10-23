@@ -8,19 +8,20 @@ from views import (
     MainMenu,
     ManagePlayerMenu,
     ManageTournament,
-    NewPlayerMenu,
-    ResumeTournamentMenu
+    ResumeTournamentMenu,
+    PlayerAddForm,
+    TournamentAddForm
     )
 import os
 
 
-def manage_tournaments():
+def manage_tournaments_menu():
     """fonction qui affiche le menu de gestion des tournois
     redirige l'utilisateur vers le menu de l'option sélectionnée"""
     while True:
         choice = ManageTournament().display()
         if choice == 1:
-            CreateTournamentMenu().display()
+            TournamentAddForm().display()
         elif choice == 2:
             ListTournamentsMenu().display()
         elif choice == 3:
@@ -35,9 +36,9 @@ def manage_players_menu():
     while True:
         choice = ManagePlayerMenu().display()
         if choice == 1:
-            NewPlayerMenu().display()
+            PlayerAddForm().display()
         elif choice == 2:
-            ListPlayersByNameMenu().display()
+            ListPlayersByNameMenu(player_manager.read()).display()
         elif choice == 3:
             ListPlayersByRankMenu().display()
         elif choice == 4:
@@ -51,13 +52,13 @@ def main():  # le main est le controleur
     affiche le menu principal
     redirige l'utilisateur vers le menu de l'option sélectionnée
     permet à l'utilisateur de quitter le programme"""
-    tournament_manager.load_json_from_file("JSON/tournaments.json")
-    player_manager.load_json_from_file("JSON/players.json")
+    tournament_manager.load_database()
+    player_manager.load_database()
 
     while True:
         choice = MainMenu().display()
         if choice == 1:
-            manage_tournaments()
+            manage_tournaments_menu()
         elif choice == 2:
             manage_players_menu()
         elif choice == 3:
