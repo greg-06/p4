@@ -1,26 +1,32 @@
 
-from typing import Dict, List
+from typing import Any, Dict, List, Tuple
 import os
+
+from models.player import Player
 
 
 # Classe mère
 class View:
-    def __init__(self, title: str, message: str):
+    def __init__(self, title: str, message: str, error: str = "", blocking:bool = False):
         self.title = title
         self.message = message
+        self.error = error
+        self.blocking = blocking
 
     def display(self):
         os.system("cls")  # TD : rendre compatible unix
-        print("=" * 50 + "\n" + self.title + "\n" + "=" * 50
-              + "\n" + self.message + "\n" + "=" * 50)
+        print("=" * 50 + "\n" + self.title + "\n" + "=" * 50 + "\n" + self.message + "\n" + "=" * 50)
+        if self.error:
+            input(self.error)
+        if self.blocking:
+            input()
 
 
 # Classe fille
 class Menu(View):
     def __init__(self, title: str, options: List[str]):
         """"""
-        message = "\n".join([f"{nb}: {option}" for nb,
-                            option in enumerate(options, start=1)])
+        message = "\n".join([f"{nb}: {option}" for nb, option in enumerate(options, start=1)])
         View.__init__(self, title, message)
         self.options = options
 
@@ -29,8 +35,7 @@ class Menu(View):
         super().display()
         while True:
             try:
-                choice = int(input(f"👉  Choisissez votre option entre 1 et \
-                    {len(self.options)} :  "))
+                choice = int(input(f"👉  Choisissez votre option entre 1 et {len(self.options)} :  "))
                 if 0 < choice <= len(self.options):
                     return choice
                 else:
@@ -39,66 +44,70 @@ class Menu(View):
                 pass
 
 
-PLAYER_DICT = """ID : <nombre entier>
-Classement : <entre 1000 et 2000>
-Nom : <nom>
-Prénom : <prénom>
-Date de naissance : <YYYY-MM-DD>
-Sexe : <M> ou <F>"""
+PLAYER_DICT = """Nom : {first_name}
+Prénom : {last_name}
+Date de naissance : {birthdate_year}-{birthdate_month}-{birthdate_day}
+Sexe : {gender}
+Classement : {rank}"""
 
 
-TOURNAMENT_DICT = """ID : <nombre entier>,
-Place: <ville>
-Date_start: <YYYY-MM-DD>,
-Date_end: <YYYY-MM-DD>,
-Nb_turns (4 par défaut): <nombre entier>,
-Players: <ID des joueurs>,
-Turns: <liste des tours>"""
+TOURNAMENT_DICT = """Nom du tournoi : {name}
+Lieu du tournoi : {place}
+Nombre de tours : {nb_turns}
+Nombre de participants : {nb_players}"""
 
 
 class Form(View):
     """"""
-    def __init__(self, title: str, message: str, fields: Dict[str, str]):
-        View.__init__(self, title, message)
+    def __init__(self, title: str, template: str, fields: Dict[str, Tuple[str, Any]]):
+        self.data = {k: "❔" for k in fields.keys()}  # dictio d'intention
+        View.__init__(self, title, template.format(**self.data))  # opérateur de décompactage
         self.fields = fields
+        self.template = template
 
     def display(self):
         """"""
-        data = {}
+        for field_name, (field_desc, field_type) in self.fields.items():
+            while True:
+                super().display()
+                try:
+                    self.data[field_name] = field_type(input(field_desc + " : "))
+                    self.error = ""
+                    self.message = self.template.format(**self.data)
+                    break
+                except ValueError:
+                    self.error = "Saisie incorrecte, appuyez sur <Entrée>..." + "\n"
         super().display()
-        for field_name, field_desc in self.fields.items():
-            data[field_name] = input(field_desc + " : ")
-        return data
+
+        input()
+
+        return self.data
 
 
 class PlayerAddForm(Form):
     """"""
     def __init__(self):
         """"""
-        super().__init__(title="Fiche joueur", message=PLAYER_DICT, fields={
-            "first_name": "Nom du joueur",
-            "last_name": "Prénom du joueur",
-            "birthdate_year": "Année de naissance du joueur : ",
-            "birthdate_month": "Moi de naissance du joueur : ",
-            "birthdate_day": "Jour de naissance du joueur : ",
-            "gender": "Sexe",
-            "rank": "Classement du joueur"
+        super().__init__(title="🧾 Fiche joueur", template=PLAYER_DICT, fields={
+            "first_name": ("Nom du joueur", str),
+            "last_name": ("Prénom du joueur", str),
+            "birthdate_year": ("Année de naissance du joueur", int),
+            "birthdate_month": ("Mois de naissance du joueur", int),
+            "birthdate_day": ("Jour de naissance du joueur", int),
+            "gender": ("Sexe", str),
+            "rank": ("Classement du joueur", int)
         })
 
 
 class TournamentAddForm(Form):
     def __init__(self):
         """"""
-        super().__init__(
-            title="Fiche tournoi",
-            message=TOURNAMENT_DICT,
-            fields={
-                "name": "Nom du tournoi",
-                "place": "Lieu du tournoi",
-                "nb_turns": "Nombre tours",
-                "nb_players": "Nombre de participants"
-                }
-            )
+        super().__init__(title="🧾 Fiche tournoi", template=TOURNAMENT_DICT, fields={
+            "name": ("Nom du tournoi", str),
+            "place": ("Lieu du tournoi", str),
+            "nb_turns": ("Nombre de tours", int),
+            "nb_players": ("Nombre de participants", int)
+            })
 
 
 class ManagePlayerMenu(Menu):
@@ -193,20 +202,9 @@ class NewPlayerMenu(Menu):
 
 
 class ListPlayersByNameMenu(Menu):
-    def __init__(self):
-        super().__init__("🧾 List player by name menu",
-                         [
-                             "player1",
-                             "player2",
-                             "player3",
-                             "player4",
-                             "player5",
-                             "player6",
-                             "player7",
-                             "player8",
-                             "back"
-                             ]
-                         )
+    def __init__(self, players: List[Player]):
+        super().__init__("🧾 List player by name menu", [str(player) for player in players])         
+
 
 
 class ListPlayersByRankMenu(Menu):
@@ -241,3 +239,10 @@ class EditPlayerRankMenu(Menu):
                              "back"
                              ]
                          )
+
+class ListView(View):
+    def __init__(self, title, items: List[Any]):
+        super().__init__(title=f"🧾 {title}", message="\n".join([str(item) for item in items]), blocking=True) 
+
+
+ListView(title="list", items=[]).display()
