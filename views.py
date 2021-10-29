@@ -3,11 +3,12 @@ from typing import Any, Dict, List, Tuple
 import os
 
 from models.player import Player
+from models.tournament import Tournament
 
 
 # Classe mère
 class View:
-    def __init__(self, title: str, message: str, error: str = "", blocking:bool = False):
+    def __init__(self, title: str, message: str, error: str = "", blocking: bool = False):
         self.title = title
         self.message = message
         self.error = error
@@ -164,15 +165,8 @@ class CreateTournamentMenu(Menu):
 
 
 class ListTournamentsMenu(Menu):
-    def __init__(self):
-        super().__init__("🧾 List tournaments",
-                         [
-                             "Tournament1",
-                             "Tournament2",
-                             "Tournament3",
-                             "Back"
-                             ]
-                         )
+    def __init__(self, tournaments: List[Tournament]):
+        super().__init__("🧾 List tournaments", [str(tournament) for tournament in tournaments])
 
 
 class ResumeTournamentMenu(Menu):
@@ -203,25 +197,12 @@ class NewPlayerMenu(Menu):
 
 class ListPlayersByNameMenu(Menu):
     def __init__(self, players: List[Player]):
-        super().__init__("🧾 List player by name menu", [str(player) for player in players])         
-
+        super().__init__("🧾 List player by name menu", [str(player) for player in players])
 
 
 class ListPlayersByRankMenu(Menu):
-    def __init__(self):
-        super().__init__("🧾 List player by rank menu",
-                         [
-                             "player1 rank",
-                             "player2 rank",
-                             "player3 rank",
-                             "player4 rank",
-                             "player5 rank",
-                             "player6 rank",
-                             "player7 rank",
-                             "player8 rank",
-                             "back"
-                             ]
-                         )
+    def __init__(self, players: List[Player]):
+        super().__init__("🧾 List player by rank menu", [str(player) for player in players])
 
 
 class EditPlayerRankMenu(Menu):
@@ -240,9 +221,9 @@ class EditPlayerRankMenu(Menu):
                              ]
                          )
 
+
 class ListView(View):
-    def __init__(self, title, items: List[Any]):
-        super().__init__(title=f"🧾 {title}", message="\n".join([str(item) for item in items]), blocking=True) 
+    def __init__(self, title: str, items: List[Any]):
+        super().__init__(title=f"🧾 {title}", message="\n".join([str(item) for item in items]), blocking=True)
 
-
-ListView(title="list", items=[]).display()
+        ListView(title="list", items=[]).display()
