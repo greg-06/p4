@@ -39,12 +39,13 @@ class Manager:
         item = self.items_type(**data)  # ** opérateur de décompactage nommé
         self.items[item.id] = item
         return item
-    
+
     def load_database(self):
         database = TinyDB("database.json")
         self.table = database.table(self.items_type.__name__.lower() + "s")
         for itemdata in self.table:
             self.create(itemdata)
-    
-            
+
+    def save_database(self):
+        pass
     # créer une fonction pour sauvegarder les données
