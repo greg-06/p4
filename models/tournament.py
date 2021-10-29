@@ -18,6 +18,9 @@ class Tournament(BaseModel):
 
     @validator("name", "place")
     def check_name(cls, v: str):
-        if not re.match(r"^[A-Za-z \-'çéèàâêîôûäëïöü_0123456789]{2,25}$", v):
+        if not re.match(r"^[A-Za-z \-'çéèàâêîôûäëïöü_0123456789()]{2,80}$", v):
             raise ValueError("Votre nom n'est pas valide")
         return v.title()
+
+    def __str__(self) -> str:
+        return (f"{self.id} {self.name} {self.place}")
