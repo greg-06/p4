@@ -23,7 +23,7 @@ def manage_tournaments_menu():
         if choice == 1:
             TournamentAddForm().display()
         elif choice == 2:
-            ListTournamentsMenu().display()
+            ListTournamentsMenu(tournament_manager.read()).display()
         elif choice == 3:
             ResumeTournamentMenu().display()
         else:
@@ -40,7 +40,7 @@ def manage_players_menu():
         elif choice == 2:
             ListPlayersByNameMenu(player_manager.read()).display()
         elif choice == 3:
-            ListPlayersByRankMenu().display()
+            ListPlayersByRankMenu(player_manager.read()).display()
         elif choice == 4:
             EditPlayerRankMenu().display()
         else:
