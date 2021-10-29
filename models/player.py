@@ -50,7 +50,7 @@ class Player(BaseModel):
         return v
 
     def __str__(self) -> str:
-        return f"{self.first_name} {self.last_name} {self.rank}"
+        return (f"{self.id} {self.first_name} {self.last_name} {self.rank} {self.gender} {self.birthdate}")
 # player = Player(
 #     id=1,
 #     first_name="Luc",
