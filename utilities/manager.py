@@ -2,6 +2,7 @@ import json
 from typing import Any
 from pydantic.types import PositiveInt
 from tinydb import TinyDB
+from tinydb.table import Document
 
 
 """le fichier manager est destiné à implémenter
@@ -22,6 +23,8 @@ class Manager:
     def __init__(self, items_type: Any) -> None:
         self.items = {}
         self.items_type = items_type
+        self.max_id = 0
+        self.load_database()
 
     def read(self):
         return list(self.items.values())
@@ -29,15 +32,14 @@ class Manager:
     def read_by_id(self, id: PositiveInt):
         return self.items[id]
 
-    def load_json_from_file(self, path: str):
-        with open(path) as read_file:
-            json_data = json.load(read_file)
-            for data in json_data:
-                self.create(data)
-
-    def create(self, data):
+    def create(self, data, save: bool = False):
+        if "id" not in data:
+            data["id"] = self.max_id + 1
         item = self.items_type(**data)  # ** opérateur de décompactage nommé
         self.items[item.id] = item
+        self.max_id = max(self.max_id, item.id)
+        if save:
+            self.save_item(item.id)
         return item
 
     def load_database(self):
@@ -46,6 +48,8 @@ class Manager:
         for itemdata in self.table:
             self.create(itemdata)
 
-    def save_database(self):
-        pass
-    # créer une fonction pour sauvegarder les données
+    def save_item(self, id: PositiveInt):
+        item = self.read_by_id(id)
+        self.table.upsert(Document(json.loads(item.json()), doc_id=id))
+
+# créer une fonction pour sauvegarder les données
