@@ -49,8 +49,13 @@ class Player(BaseModel):
             raise ValueError("Vous n'avez pas l'âge légal pour vous inscrire")
         return v
 
-    def __str__(self) -> str:
-        return (f"{self.id} {self.first_name} {self.last_name} {self.rank} {self.gender} {self.birthdate}")
+    def render_players(self, lenght: int):
+        return str(self.id).ljust(lenght) + self.first_name.ljust(lenght) + self.last_name.ljust(lenght) + str(self.birthdate).ljust(lenght) + self.gender.ljust(lenght) + str(self.rank).ljust(lenght)
+
+    # def __str__(self) -> str:
+    #     return (f"{self.id} {self.first_name} {self.last_name} {self.birthdate} {self.gender} {self.rank}" + "\n" + "-" * 50)
+
+
 # player = Player(
 #     id=1,
 #     first_name="Luc",
