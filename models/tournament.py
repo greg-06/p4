@@ -22,5 +22,8 @@ class Tournament(BaseModel):
             raise ValueError("Votre nom n'est pas valide")
         return v.title()
 
-    def __str__(self) -> str:
-        return (f"{self.id} {self.name} {self.place}")
+    def render_tournaments(self, lenght: int, char: str):
+        return f"{str(self.id).zfill(3).ljust(lenght, char)} {self.name.ljust(lenght,char)} {self.place.ljust(lenght, char)}"
+
+    # def __str__(self) -> str:
+    #     return (f"{str(self.id).zfill(3)} {self.name} {self.place}")
