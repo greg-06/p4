@@ -1,9 +1,20 @@
 
 from typing import Any, Dict, List, Tuple
 import os
-
+import time
+import sys
 from models.player import Player
 from models.tournament import Tournament
+from termcolor import cprint
+
+
+def scroll_text(text):
+    for char in str(text):
+        sys.stdout.write(char)
+        sys.stdout.flush()
+        time.sleep(0.03)
+    input()
+    os.system("cls")
 
 
 # Classe mère
@@ -16,18 +27,28 @@ class View:
 
     def display(self):
         os.system("cls")  # TD : rendre compatible unix
-        print("=" * 50 + "\n" + self.title + "\n" + "=" * 50 + "\n" + self.message + "\n" + "=" * 50)
+        print(f"{bcolors.HEADER}={bcolors.ENDC}" * 50 + "\n" + self.title + "\n" + f"{bcolors.HEADER}={bcolors.ENDC}" * 50 + "\n" + self.message + "\n" + f"{bcolors.HEADER}─{bcolors.ENDC}" * 50)
         if self.error:
             input(self.error)
         if self.blocking:
+            print(f"{bcolors.HEADER}Appuyez sur <Entrée> pour continuer...{bcolors.ENDC}")
             input()
+
+
+class ResumeMenu(View):
+    def __init__(self):
+        super().__init__(f"{bcolors.HEADER}💤  waiting for resume 💤{bcolors.ENDC}" + "\n\n" + "Press <Enter> to resume... ", "")
+
+    def display(self):
+        os.system("cls")
+        cprint(f"{self.title}" + "\n" + f"{self.message}")
 
 
 # Classe fille
 class Menu(View):
-    def __init__(self, title: str, options: List[str]):
+    def __init__(self, title: str, options: List[Tuple[str, Any]]):
         """"""
-        message = "\n".join([f"{nb}: {option}" for nb, option in enumerate(options, start=1)])
+        message = "\n".join([f"{nb}: {option}" for nb, (option, _) in enumerate(options, start=1)])
         View.__init__(self, title, message)
         self.options = options
 
@@ -36,13 +57,26 @@ class Menu(View):
         super().display()
         while True:
             try:
-                choice = int(input(f"👉  Choisissez votre option entre 1 et {len(self.options)} :  "))
+                choice = int(input(f"{bcolors.OKGREEN}👉  Choisissez votre option entre 1 et {len(self.options)} :{bcolors.ENDC}  "))
+                # one_option = int(input(""))
                 if 0 < choice <= len(self.options):
-                    return choice
+                    return self.options[choice - 1][1]
                 else:
                     print("Entrez une option valide")
             except ValueError:
                 pass
+
+
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
 
 
 PLAYER_DICT = """Nom : {first_name}
@@ -70,6 +104,7 @@ class Form(View):
         """"""
         for field_name, (field_desc, field_type) in self.fields.items():
             while True:
+                os.system("cls")
                 super().display()
                 try:
                     self.data[field_name] = field_type(input(field_desc + " : "))
@@ -77,7 +112,7 @@ class Form(View):
                     self.message = self.template.format(**self.data)
                     break
                 except ValueError:
-                    self.error = "Saisie incorrecte, appuyez sur <Entrée>..." + "\n"
+                    self.error = f"{bcolors.HEADER}Saisie incorrecte, appuyez sur <Entrée>...{bcolors.ENDC}" + "\n"
         super().display()
 
         input()
@@ -85,18 +120,26 @@ class Form(View):
         return self.data
 
 
+class ListView(View):
+    def __init__(self, title: str, items: List[Any]):
+        super().__init__(title=f"{title}", message="\n".join([str(item) for item in items]), blocking=True)
+        # super().__init__(title=title, message="\n".join([item.render_players(12) for item in items])
+
+
+# ListView(title="list", items=[]).display()
+
 class PlayerAddForm(Form):
     """"""
     def __init__(self):
         """"""
-        super().__init__(title="🧾 Fiche joueur", template=PLAYER_DICT, fields={
-            "first_name": ("Nom du joueur", str),
-            "last_name": ("Prénom du joueur", str),
-            "birthdate_year": ("Année de naissance du joueur", int),
-            "birthdate_month": ("Mois de naissance du joueur", int),
-            "birthdate_day": ("Jour de naissance du joueur", int),
-            "gender": ("Sexe", str),
-            "rank": ("Classement du joueur", int)
+        super().__init__(title=f"{bcolors.BOLD}🧾 Fiche joueur{bcolors.ENDC}", template=PLAYER_DICT, fields={
+            "first_name": (f"{bcolors.OKGREEN}Nom du joueur{bcolors.ENDC}", str),
+            "last_name": (f"{bcolors.OKGREEN}Prénom du joueur{bcolors.ENDC}", str),
+            "birthdate_year": (f"{bcolors.OKGREEN}Année de naissance du joueur{bcolors.ENDC}", int),
+            "birthdate_month": (f"{bcolors.OKGREEN}Mois de naissance du joueur{bcolors.ENDC}", int),
+            "birthdate_day": (f"{bcolors.OKGREEN}Jour de naissance du joueur{bcolors.ENDC}", int),
+            "gender": (f"{bcolors.OKGREEN}Sexe{bcolors.ENDC}", str),
+            "rank": (f"{bcolors.OKGREEN}Classement du joueur{bcolors.ENDC}", int)
         })
 
 
@@ -104,23 +147,23 @@ class TournamentAddForm(Form):
     def __init__(self):
         """"""
         super().__init__(title="🧾 Fiche tournoi", template=TOURNAMENT_DICT, fields={
-            "name": ("Nom du tournoi", str),
-            "place": ("Lieu du tournoi", str),
-            "nb_turns": ("Nombre de tours", int),
-            "nb_players": ("Nombre de participants", int)
+            "name": (f"{bcolors.OKGREEN}Nom du tournoi{bcolors.ENDC}", str),
+            "place": (f"{bcolors.OKGREEN}Lieu du tournoi{bcolors.ENDC}", str),
+            "nb_turns": (f"{bcolors.OKGREEN}Nombre de tours", int),
+            "nb_players": (f"{bcolors.OKGREEN}Nombre de participants{bcolors.ENDC}", int)
             })
 
 
 class ManagePlayerMenu(Menu):
     def __init__(self):
         """"""
-        super().__init__("🧾 Manage players menu",
+        super().__init__(f"{bcolors.BOLD}🧾 Manage players menu{bcolors.ENDC}",
                          [
-                             "New player",
-                             "List players by name",
-                             "List players by rank",
-                             "Edit player rank",
-                             "Back"
+                             ("New player", "/New player"),
+                             ("List players by name", "/List players by name"),
+                             ("List players by rank", "/List players by rank"),
+                             ("Edit player rank", "/Edit player rank"),
+                             ("Back", "/Back")
                              ]
                          )
 
@@ -128,11 +171,11 @@ class ManagePlayerMenu(Menu):
 class MainMenu(Menu):
     def __init__(self):
         """"""
-        super().__init__("📌 Menu principal",
+        super().__init__(f"{bcolors.BOLD}📌 Menu principal{bcolors.ENDC}",
                          [
-                             "Manage tournaments",
-                             "Manage players",
-                             "Quit the program"
+                             ("Manage tournaments", "/tournaments"),
+                             ("Manage players", "/players"),
+                             ("Quit the program", "/quit")
                              ]
                          )
 
@@ -140,90 +183,45 @@ class MainMenu(Menu):
 class ManageTournament(Menu):
     def __init__(self):
         """"""
-        super().__init__("🧾 Manage tournaments menu",
+        super().__init__(f"{bcolors.BOLD}🧾 Manage tournaments menu{bcolors.ENDC}",
                          [
-                             "Create tournament",
-                             "List tournaments",
-                             "Resume tournament",
-                             "Back"])
+                             ("Create tournament", "/create tournament"),
+                             ("List tournaments", "/list tournaments"),
+                             ("Resume tournament", "/resume tournament"),
+                             ("Back", "/back")])
 
 
 class CreateTournamentMenu(Menu):
     def __init__(self):
         """"""
-        super().__init__("🧾 Create tournament",
+        super().__init__(f"{bcolors.BOLD}🧾 Create tournament{bcolors.ENDC}",
                          [
-                             "Name",
-                             "Place",
-                             "Date",
-                             "Tours Number",
-                             "Description",
-                             "Time Control",
-                             "Back"
+                             ("Name", "/Name"),
+                             ("Place", "/Place"),
+                             ("Date", "/Date"),
+                             ("Tours Number", "/Tours Number"),
+                             ("Description", "/Description"),
+                             ("Time Control", "/Time Control"),
+                             ("Back", "/Back")
                              ]
                          )
 
 
-class ListTournamentsMenu(Menu):
+class ListTournamentsMenu(ListView):
     def __init__(self, tournaments: List[Tournament]):
-        super().__init__("🧾 List tournaments", [str(tournament) for tournament in tournaments])
+        super().__init__(f"{bcolors.BOLD}🧾 List tournaments{bcolors.ENDC}", [str(tournament.render_tournaments(52, ".")) for tournament in tournaments])
 
 
-class ResumeTournamentMenu(Menu):
-    def __init__(self):
-        super().__init__("🧾 Resume menu",
-                         [
-                             "Resume",
-                             "Back"
-                             ]
-                         )
-
-
-class NewPlayerMenu(Menu):
-    def __init__(self):
-        super().__init__("🧾 New Player menu",
-                         [
-                             "First Name",
-                             "Last name",
-                             "Birthdate_year",
-                             "Birthdate_month",
-                             "Birthdate_day",
-                             "Gender",
-                             "Rank",
-                             "Back"
-                             ]
-                         )
-
-
-class ListPlayersByNameMenu(Menu):
+class ListPlayersByNameMenu(ListView):
     def __init__(self, players: List[Player]):
-        super().__init__("🧾 List player by name menu", [str(player) for player in players])
+        super().__init__(f"{bcolors.BOLD}🧾 List player by name menu{bcolors.ENDC}", [str(player.render_players(18)) for player in players])
 
 
-class ListPlayersByRankMenu(Menu):
+class ListPlayersByRankMenu(ListView):
     def __init__(self, players: List[Player]):
-        super().__init__("🧾 List player by rank menu", [str(player) for player in players])
+        super().__init__(f"{bcolors.BOLD}🧾 List player by rank menu{bcolors.ENDC}", [str(player.render_players(18)) for player in players])
 
 
-class EditPlayerRankMenu(Menu):
-    def __init__(self):
-        super().__init__("🧾 Edit player rank menu",
-                         [
-                             "Edit player_01 rank",
-                             "Edit player_02 rank",
-                             "Edit player_03 rank",
-                             "Edit player_04 rank",
-                             "Edit player_05 rank",
-                             "Edit player_06 rank",
-                             "Edit player_07 rank",
-                             "Edit player_08 rank",
-                             "back"
-                             ]
-                         )
-
-
-class ListView(View):
-    def __init__(self, title: str, items: List[Any]):
-        super().__init__(title=f"🧾 {title}", message="\n".join([str(item) for item in items]), blocking=True)
-
-        ListView(title="list", items=[]).display()
+class EditPlayerRankMenu(Form):
+    def __init__(self, players: List[Player]):
+        pass
